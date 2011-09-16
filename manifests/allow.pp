@@ -1,8 +1,12 @@
 define ufw::allow($proto="tcp", $port="all", $ip="", $from="any") {
 
-  $ipadr = $ip ? {
-    "" => $ipaddress_eth0,
-    default => $ip,
+  if $ipaddress_eth0 != undef {
+    $ipadr = $ip ? {
+      "" => $ipaddress_eth0,
+      default => $ip,
+    }
+  } else {
+    $ipadr = "any"
   }
 
   $from_match = $from ? {
