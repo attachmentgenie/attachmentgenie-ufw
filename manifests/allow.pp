@@ -14,7 +14,7 @@ define ufw::allow($proto="tcp", $port="all", $ip="", $from="any") {
     default => "$from/$proto",
   }
 
-  exec { "ufw-allow-$proto-from-$from-to-$ipadr-port-$port":
+  exec { "ufw-allow-${proto}-from-${from}-to-${ipadr}-port-${port}":
     command => $port ? {
       "all" => "ufw allow proto $proto from $from to $ipadr",
       default => "ufw allow proto $proto from $from to $ipadr port $port",
