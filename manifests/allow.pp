@@ -2,7 +2,7 @@ define ufw::allow($proto="tcp", $port="all", $ip="", $from="any") {
 
   if $::ipaddress_eth0 != undef {
     $ipadr = $ip ? {
-      "" => $::$ipaddress_eth0,
+      "" => $::ipaddress_eth0,
       default => $ip,
     }
   } else {
