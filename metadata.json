@@ -14,7 +14,7 @@
     "README.md": "56185f03f03cbbb173601509e116c6c9",
     "Rakefile": "30135290361360248d8139853a15c8a2",
     "manifests/allow.pp": "f557ab9c589b1c72aa7ab6b74ee2bb0c",
-    "manifests/deny.pp": "0050d8205ce11384f37e3e6a75061159",
+    "manifests/deny.pp": "99d3a9e0415b1b3c37114acd51caedb8",
     "manifests/init.pp": "81baf6c442af91032d27d535b0fd2f62",
     "manifests/limit.pp": "096c50250cbdbe4401ceae423714ea67",
     "spec/spec.opts": "a600ded995d948e393fbe2320ba8e51c",
