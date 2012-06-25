@@ -13,7 +13,7 @@
     "Modulefile": "339da21c86231f6aca15a8d30b4080dd",
     "README.md": "5b949e727d388e69edb4b8ff7d8c706a",
     "Rakefile": "9b80b157fe8bf8ee3975c7dec8524204",
-    "manifests\\allow.pp": "79a0a944f039dfe16f99420e80c705e2",
+    "manifests\\allow.pp": "c9ff4c63139549e1f6101728c3df3a7a",
     "manifests\\deny.pp": "549c1cb93ed9203fabe8009b285ad822",
     "manifests\\init.pp": "ac9a99b8ae773cdc35df3384d7b80ae5",
     "manifests\\limit.pp": "8148eda2dfb57e473ee513a0b24cca63",
