@@ -8,6 +8,10 @@ rescue LoadError
   retry
 end
 
-task :test => [:lint]
+RSpec::Core::RakeTask.new(:spec) do |t|
+  t.pattern = 'spec/*/*_spec.rb'
+end
+
+task :test => [:spec, :lint]
 
 task :default => :test
