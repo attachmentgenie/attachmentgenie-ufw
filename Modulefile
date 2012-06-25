@@ -1,10 +1,10 @@
-name 'uggedal-puppet-module-ufw'
+name 'attachmentgenie-puppet-module-ufw'
 version '1.0.0'
 
-author 'Eivind Uggedal <eivind@uggedal.com>'
+author 'Bram Vogelaar'
 license 'MIT License'
-project_page 'https://github.com/uggedal/puppet-module-ufw'
-source 'git://github.com/uggedal/puppet-module-ufw.git'
+project_page 'https://github.com/attachmentgenie/puppet-module-ufw'
+source 'git://github.com/attachmentgenie/puppet-module-ufw.git'
 summary 'Puppet UFW Module'
 description 'Module for configuring UFW (Uncomplicated Firewall).
 
