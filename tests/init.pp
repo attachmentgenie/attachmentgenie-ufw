@@ -1,1 +1,1 @@
-include puppet-module-ufw
+class { 'ufw': }
