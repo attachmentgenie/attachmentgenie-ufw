@@ -22,7 +22,7 @@
     "tests/allow.pp": "6c792330a86393231d9a5c5a2e0e9949",
     "tests/deny.pp": "96377cee0084b96c14ff1a828961946f",
     "tests/init.pp": "0571b366ccfc29695d3df3651845a9b3",
-    "tests/limit.pp": "6e4fe2cae76ef2488dc9e6263736e162"
+    "tests/limit.pp": "2db7323e1b4744a3d3ed29c3de9997c9"
   },
   "dependencies": [
     {
