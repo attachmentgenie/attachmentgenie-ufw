@@ -1,6 +1,6 @@
 {
-  "name": "attachmentgenie-puppet-module-ufw",
-  "author": "Bram Vogelaar",
+  "name": "attachmentgenie-ufw",
+  "author": "Eivind Uggedal \u003ceivind@uggedal.com\u003e",
   "description": "Module for configuring UFW (Uncomplicated Firewall).\n\nTested on Debian GNU/Linux 6.0 Squeeze and Ubuntu 12.04 LTS with Puppet 2.7. \nPatches for other operating systems are welcome.",
   "license": "MIT License",
   "project_page": "https://github.com/attachmentgenie/puppet-module-ufw",
@@ -10,8 +10,8 @@
   "checksums": {
     "Gemfile": "0a275f1d64df25282170d15201432745",
     "LICENSE": "53fb7bdc23e16d0ea7b01360fc70d320",
-    "Modulefile": "12dabfc461fb837ee366b5a8a402ea72",
-    "README.md": "5b949e727d388e69edb4b8ff7d8c706a",
+    "Modulefile": "3d0533ed14a7f9d90a08889c7c7a2f29",
+    "README.md": "ebbce9ec0c7e00e2723911796ac8eebf",
     "Rakefile": "9b80b157fe8bf8ee3975c7dec8524204",
     "manifests\\allow.pp": "c9ff4c63139549e1f6101728c3df3a7a",
     "manifests\\deny.pp": "9c6bb36a5ab9f8ecd97bbe2fcf3eb0e0",

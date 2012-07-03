@@ -1,7 +1,7 @@
-name 'attachmentgenie-puppet-module-ufw'
+name 'attachmentgenie-ufw'
 version '1.0.0'
 
-author 'Bram Vogelaar'
+author 'Eivind Uggedal <eivind@uggedal.com>'
 license 'MIT License'
 project_page 'https://github.com/attachmentgenie/puppet-module-ufw'
 source 'git://github.com/attachmentgenie/puppet-module-ufw.git'
