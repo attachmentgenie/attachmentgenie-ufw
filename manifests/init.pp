@@ -11,7 +11,7 @@ class ufw {
   }
 
   exec { 'ufw-enable':
-    command => 'yes | ufw enable',
+    command => 'ufw --force enable',
     unless  => 'ufw status | grep "Status: active"',
   }
 
