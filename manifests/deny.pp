@@ -11,7 +11,7 @@ define ufw::deny($proto='tcp', $port='all', $ip='', $from='any') {
 
   $from_match = $from ? {
     'any'   => 'Anywhere',
-    default => "$from/$proto",
+    default => "$from",
   }
 
   exec { "ufw-deny-${proto}-from-${from}-to-${ipadr}-port-${port}":
