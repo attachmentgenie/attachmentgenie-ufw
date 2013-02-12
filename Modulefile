@@ -1,5 +1,5 @@
 name 'attachmentgenie-ufw'
-version '1.0.2'
+version '1.0.3'
 
 author 'Eivind Uggedal <eivind@uggedal.com>'
 license 'MIT License'
