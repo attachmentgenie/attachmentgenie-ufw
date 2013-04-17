@@ -16,4 +16,12 @@ describe 'ufw::allow', :type => :define do
       with_unless('ufw status | grep -E " +ALLOW +192.0.2.42/tcp"')
     }
   end
+
+  context 'when specifying port' do
+    let(:params) { {:port => '8080'} }
+    it { should contain_exec('ufw-allow-tcp-from-any-to-any-port-8080').
+      with_command("ufw allow proto tcp from any to any port 8080").
+      with_unless('ufw status | grep -E "8080/tcp +ALLOW +Anywhere"')
+    }
+  end
 end
