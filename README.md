@@ -48,3 +48,9 @@ You can also rate limit certain ports (the IP is blocked if it initiates
 6 or more connections within 30 seconds):
 
     ufw::limit { 22: }
+    
+You can also adjust the ufw logging settings
+
+    ufw::logging { "prevent-logging":
+        level => 'off',
+    }
