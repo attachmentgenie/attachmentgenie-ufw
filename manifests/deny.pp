@@ -21,7 +21,7 @@ define ufw::deny($proto='tcp', $port='all', $ip='', $from='any') {
     },
     unless  => $port ? {
       'all'   => "ufw status | grep -E \"$ipadr/$proto +DENY +$from_match\"",
-      default => "ufw status | grep -E \"$ipadr $port/$proto +DENY +$from_match\"",
+      default => "ufw status | grep -Ee \"$ipadr $port/$proto +DENY +$from_match\" -e \"^${port}/${proto} +DENY +${from_match}$\"",
     },
     require => Exec['ufw-default-deny'],
     before  => Exec['ufw-enable'],
