@@ -1,3 +1,8 @@
+# Class ufw
+#
+#  installs and enables Ubuntu's "uncomplicated" firewall.
+#  Careful calling this class alone, was it will by default
+#  enable ufw, and disable all incoming traffic.
 class ufw {
   package { 'ufw':
     ensure => present,
