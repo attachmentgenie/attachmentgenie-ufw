@@ -12,12 +12,12 @@ class ufw {
 
   exec { 'ufw-default-deny':
     command => 'ufw default deny',
-    unless  => 'ufw status verbose | grep "Default: deny (incoming), allow (outgoing)"',
+    unless  => 'ufw status verbose | grep -q "Default: deny (incoming), allow (outgoing)"',
   }
 
   exec { 'ufw-enable':
     command => 'ufw --force enable',
-    unless  => 'ufw status | grep "Status: active"',
+    unless  => 'ufw status | grep -q "Status: active"',
   }
 
   service { 'ufw':
