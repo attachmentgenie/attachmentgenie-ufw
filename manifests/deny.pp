@@ -26,9 +26,11 @@ define ufw::deny($proto='tcp', $port='all', $ip='', $from='any') {
   }
 
   exec { "ufw-deny-${proto}-from-${from}-to-${ipadr}-port-${port}":
-    command => $command,
-    unless  => $unless,
-    require => Exec['ufw-default-deny'],
-    before  => Exec['ufw-enable'],
+    command  => $command,
+    path     => '/usr/sbin:/bin:/usr/bin',
+    provider => 'posix',
+    unless   => $unless,
+    require  => Exec['ufw-default-deny'],
+    before   => Exec['ufw-enable'],
   }
 }
