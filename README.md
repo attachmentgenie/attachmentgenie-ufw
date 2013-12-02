@@ -18,16 +18,6 @@ will be enabled, and all incomming connections will be denied:
 include ufw
 ```
 
-Note that you'll need to define a global search path for the `exec`
-resource to make this module function properly. This should ideally be
-placed in `manifests/site.pp`:
-
-```puppet
-Exec {
-  path => "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
-}
-```
-
 You can then allow certain connections:
 
 ```puppet

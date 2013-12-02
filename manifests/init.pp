@@ -4,6 +4,12 @@
 #  Careful calling this class alone, was it will by default
 #  enable ufw, and disable all incoming traffic.
 class ufw {
+
+  Exec {
+    path     => '/usr/sbin:/bin:/usr/bin',
+    provider => 'posix',
+  }
+
   package { 'ufw':
     ensure => present,
   }
