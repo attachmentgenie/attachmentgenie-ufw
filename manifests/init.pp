@@ -4,11 +4,11 @@
 #  Careful calling this class alone, was it will by default
 #  enable ufw, and disable all incoming traffic.
 class ufw(
-  $ufw_allows   = {},
-  $ufw_denies   = {},
-  $ufw_limits   = {},
-  $ufw_loggings = {},
-  $ufw_rejects  = {},
+  $allows   = {},
+  $denies   = {},
+  $limits   = {},
+  $loggings = {},
+  $rejects  = {},
   ) {
 
   Exec {
@@ -40,9 +40,9 @@ class ufw(
   }
 
   # Hiera resource creation
-  create_resources('ufw::allow', $ufw_allows)
-  create_resources('ufw::deny', $ufw_denies)
-  create_resources('ufw::limit', $ufw_limits)
-  create_resources('ufw::logging', $ufw_loggings)
-  create_resources('ufw::reject', $ufw_rejects)
+  create_resources('ufw::allow', $allows)
+  create_resources('ufw::deny', $denies)
+  create_resources('ufw::limit', $limits)
+  create_resources('ufw::logging', $loggings)
+  create_resources('ufw::reject', $rejects)
 }
