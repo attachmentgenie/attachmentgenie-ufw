@@ -3,7 +3,13 @@
 #  installs and enables Ubuntu's "uncomplicated" firewall.
 #  Careful calling this class alone, was it will by default
 #  enable ufw, and disable all incoming traffic.
-class ufw {
+class ufw(
+  $allows   = {},
+  $denies   = {},
+  $limits   = {},
+  $loggings = {},
+  $rejects  = {},
+  ) {
 
   Exec {
     path     => '/usr/sbin:/bin:/usr/bin',
@@ -32,4 +38,11 @@ class ufw {
     hasstatus => true,
     subscribe => Package['ufw'],
   }
+
+  # Hiera resource creation
+  create_resources('ufw::allow', $allows)
+  create_resources('ufw::deny', $denies)
+  create_resources('ufw::limit', $limits)
+  create_resources('ufw::logging', $loggings)
+  create_resources('ufw::reject', $rejects)
 }
