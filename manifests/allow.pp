@@ -1,12 +1,18 @@
 # Define ufw::allow
 define ufw::allow($proto='tcp', $port='all', $ip='', $from='any') {
 
-  $ipadr = $ip ? {
-    ''  => $::ipaddress_eth0 ? {
-      undef   => 'any',
-      default => $::ipaddress_eth0,
-    },
-    default => $ip,
+  if $ip == '' {
+    # Find suitable ufw 'to' address since $ip was not supplied
+    if $::ipaddress_eth0 != undef {
+      $ipadr = $::ipaddress_eth0
+    } elsif $::ipaddress != undef {
+      $ipadr = $::ipaddress
+    } else {
+      $ipadr = 'any'
+    }
+  } else {
+    # Use $ip as ufw 'to' address when supplied
+    $ipadr = $ip
   }
 
   $from_match = $from ? {
