@@ -6,12 +6,12 @@ class ufw {
   Package['ufw'] -> Exec['ufw-default-deny'] -> Exec['ufw-enable']
 
   exec { 'ufw-default-deny':
-    command => 'ufw default deny',
+    command => '/usr/sbin/ufw default deny',
     unless  => 'ufw status verbose | grep "Default: deny (incoming), allow (outgoing)"',
   }
 
   exec { 'ufw-enable':
-    command => 'ufw --force enable',
+    command => '/usr/sbin/ufw --force enable',
     unless  => 'ufw status | grep "Status: active"',
   }
 
