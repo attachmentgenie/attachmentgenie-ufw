@@ -5,7 +5,7 @@ describe 'ufw::allow', :type => :define do
   context 'basic operation' do
     it { should contain_exec('ufw-allow-tcp-from-any-to-any-port-all').
       with_command("ufw allow proto tcp from any to any").
-      with_unless("ufw status | grep -qE '^ +ALLOW +Anywhere$'")
+      with_unless("ufw status | grep -qE ' +ALLOW +Anywhere$'")
     }
   end
 
@@ -13,7 +13,7 @@ describe 'ufw::allow', :type => :define do
     let(:params) { {:from => '192.0.2.42'} }
     it { should contain_exec('ufw-allow-tcp-from-192.0.2.42-to-any-port-all').
       with_command("ufw allow proto tcp from 192.0.2.42 to any").
-      with_unless("ufw status | grep -qE '^ +ALLOW +192.0.2.42$'")
+      with_unless("ufw status | grep -qE ' +ALLOW +192.0.2.42$'")
     }
   end
 
