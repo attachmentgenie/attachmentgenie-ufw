@@ -40,9 +40,9 @@ class ufw(
   }
 
   # Hiera resource creation
-  create_resources('ufw::allow', $allows)
-  create_resources('ufw::deny', $denies)
-  create_resources('ufw::limit', $limits)
-  create_resources('ufw::logging', $loggings)
-  create_resources('ufw::reject', $rejects)
+  create_resources('ufw::allow', hiera_hash('ufw::allows', $allows))
+  create_resources('ufw::deny', hiera_hash('ufw::denies', $denies))
+  create_resources('ufw::limit', hiera_hash('ufw::limits', $limits))
+  create_resources('ufw::logging', hiera_hash('ufw::loggings', $loggings))
+  create_resources('ufw::reject', hiera_hash('ufw::rejects', $rejects))
 }
