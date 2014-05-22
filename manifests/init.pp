@@ -12,7 +12,7 @@ class ufw(
   ) {
 
   Exec {
-    path     => '/usr/sbin:/bin:/usr/bin',
+    path     => '/sbin:/usr/sbin:/bin:/usr/bin',
     provider => 'posix',
   }
 
