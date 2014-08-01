@@ -1,4 +1,4 @@
-[![Build Status](https://secure.travis-ci.org/attachmentgenie/puppet-module-ufw.png)](http://travis-ci.org/attachmentgenie/puppet-module-ufw)
+[![Build Status](https://secure.travis-ci.org/attachmentgenie/attachmentgenie-ufw.png)](http://travis-ci.org/attachmentgenie/attachmentgenie-ufw)
 
 Puppet UFW Module
 =================
