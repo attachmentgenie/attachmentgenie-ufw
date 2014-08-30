@@ -1,13 +1,12 @@
 # Define ufw::deny enables us to define deny rules for ufw
 define ufw::deny($proto='tcp', $port='all', $ip='', $from='any') {
 
-  if $::ipaddress_eth0 != undef {
-    $ipadr = $ip ? {
-      ''      => $::ipaddress_eth0,
-      default => $ip,
-    }
-  } else {
-    $ipadr = 'any'
+  $ipadr = $ip ? {
+    ''  => $::ipaddress_eth0 ? {
+      undef   => 'any',
+      default => $::ipaddress_eth0,
+    },
+    default => $ip,
   }
 
   $from_match = $from ? {
