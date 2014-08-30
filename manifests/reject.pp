@@ -11,15 +11,15 @@ define ufw::reject($proto='tcp', $port='all', $ip='', $from='any') {
 
   $from_match = $from ? {
     'any'   => 'Anywhere',
-    default => "$from",
+    default => $from,
   }
 
   exec { "ufw-reject-${proto}-from-${from}-to-${ipadr}-port-${port}":
     path     => '/usr/sbin:/bin:/usr/bin',
     provider => 'posix',
     command  => $port ? {
-      'all'   => "ufw reject proto $proto from $from to $ipadr",
-      default => "ufw reject proto $proto from $from to $ipadr port $port",
+      'all'   => "ufw reject proto ${proto} from ${from} to ${ipadr}",
+      default => "ufw reject proto ${proto} from ${from} to ${ipadr} port ${port}",
     },
     unless   => $port ? {
       'all'   => "ufw status | grep -qE '^${ipadr}/${proto} +REJECT +${from_match}$'",
