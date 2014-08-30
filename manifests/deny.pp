@@ -9,8 +9,16 @@ define ufw::deny($proto='tcp', $port='all', $ip='', $from='any') {
     default => $ip,
   }
 
+  $ipver = $ipadr ? {
+    /:/     => 'v6',
+    default => 'v4',
+  }
+
   $from_match = $from ? {
-    'any'   => 'Anywhere',
+    'any'   => $ipver ? {
+      'v4' => 'Anywhere',
+      'v6' => 'Anywhere \(v6\)',
+      },
     default => $from,
   }
 
