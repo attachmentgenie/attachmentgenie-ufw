@@ -1,4 +1,4 @@
-[![Build Status](https://secure.travis-ci.org/attachmentgenie/puppet-module-ufw.png)](http://travis-ci.org/attachmentgenie/puppet-module-ufw)
+[![Build Status](https://secure.travis-ci.org/attachmentgenie/attachmentgenie-ufw.png)](http://travis-ci.org/attachmentgenie/attachmentgenie-ufw)
 
 Puppet UFW Module
 =================
@@ -39,6 +39,17 @@ ufw::allow { "allow-dns-over-udp":
   proto => "udp",
 }
 ```
+
+Ranges are created via
+
+```puppet
+ufw::allow { 'all http ports'
+  port  => '8000:8999',
+  proto => 'tcp'.
+}
+```
+
+n.b.: ranges require the protocol to be tcp or udp. It cannot be any.
 
 You can also rate limit certain ports (the IP is blocked if it initiates
 6 or more connections within 30 seconds):
