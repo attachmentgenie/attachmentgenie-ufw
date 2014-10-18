@@ -20,9 +20,9 @@ describe 'ufw::deny', :type => :define do
   describe 'specifying to address' do
     context 'from ipaddress_eth0 fact' do
       let(:facts) { {:ipaddress_eth0 => '192.0.2.67'} }
-      it { should contain_exec('ufw-deny-tcp-from-any-to-192.0.2.67-port-all').
-        with_command("ufw deny proto tcp from any to 192.0.2.67").
-        with_unless("ufw status | grep -qE '192.0.2.67/tcp +DENY +Anywhere'")
+      it { should contain_exec('ufw-deny-tcp-from-any-to-any-port-all').
+        with_command("ufw deny proto tcp from any to any").
+        with_unless("ufw status | grep -qE 'any/tcp +DENY +Anywhere'")
       }
     end
 

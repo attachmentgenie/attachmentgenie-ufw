@@ -20,9 +20,9 @@ describe 'ufw::reject', :type => :define do
   describe 'specifying to address' do
     context 'from ipaddress_eth0 fact' do
       let(:facts) { {:ipaddress_eth0 => '192.0.2.67'} }
-      it { should contain_exec('ufw-reject-tcp-from-any-to-192.0.2.67-port-all').
-        with_command("ufw reject proto tcp from any to 192.0.2.67").
-        with_unless("ufw status | grep -qE '^192.0.2.67/tcp +REJECT +Anywhere$'")
+      it { should contain_exec('ufw-reject-tcp-from-any-to-any-port-all').
+        with_command("ufw reject proto tcp from any to any").
+        with_unless("ufw status | grep -qE '^any/tcp +REJECT +Anywhere$'")
       }
     end
 
