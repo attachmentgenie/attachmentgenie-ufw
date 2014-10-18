@@ -57,7 +57,7 @@ You can also rate limit certain ports (the IP is blocked if it initiates
 ```puppet
 ufw::limit { 22: }
 ```
-    
+
 You can also adjust the ufw logging settings
 
 ```puppet
@@ -65,3 +65,6 @@ ufw::logging { "prevent-logging":
     level => 'off',
 }
 ```
+
+## Known Limitations ##
+Currently it is not possible to purge unmanaged rules and remove defined rules this will need to be done manually. (see #21 )
