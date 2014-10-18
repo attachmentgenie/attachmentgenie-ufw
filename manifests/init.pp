@@ -29,10 +29,10 @@ class ufw(
 
   case $::lsbdistcodename {
     'squeeze': {
-       exec { 'ufw-enable':
-         command => 'yes | ufw enable',
-         unless  => 'ufw status | grep "Status: active"',
-       }
+      exec { 'ufw-enable':
+        command => 'yes | ufw enable',
+        unless  => 'ufw status | grep "Status: active"',
+      }
     }
     default: {
       exec { 'ufw-enable':
