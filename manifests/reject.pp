@@ -1,10 +1,8 @@
 define ufw::reject($proto='tcp', $port='all', $ip='', $from='any') {
 
+  # For 'reject' action, the default is to deny to any address
   $ipadr = $ip ? {
-    ''  => $::ipaddress_eth0 ? {
-      undef   => 'any',
-      default => $::ipaddress_eth0,
-    },
+    ''      => 'any',
     default => $ip,
   }
 
