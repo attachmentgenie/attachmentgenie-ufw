@@ -9,7 +9,10 @@ class ufw(
   $limit   = {},
   $logging = {},
   $reject  = {},
-  ) {
+  $forward = 'DROP',
+) {
+
+  validate_re($forward, 'ACCEPT|DROP|REJECT')
 
   Exec {
     path     => '/sbin:/usr/sbin:/bin:/usr/bin',
@@ -40,6 +43,13 @@ class ufw(
         unless  => 'ufw status | grep "Status: active"',
       }
     }
+  }
+
+  file_line { 'forward policy':
+    path   => '/etc/default/ufw',
+    line   => "DEFAULT_FORWARD_POLICY=\"${forward}\"",
+    match  => '^DEFAULT_FORWARD_POLICY=',
+    notify => Service['ufw'],
   }
 
   service { 'ufw':

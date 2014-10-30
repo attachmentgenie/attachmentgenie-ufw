@@ -18,6 +18,14 @@ will be enabled, and all incomming connections will be denied:
 include ufw
 ```
 
+You can change the forward policy, which defaults to `DROP`:
+
+```puppet
+class { 'ufw':
+  forward => 'ACCEPT',
+}
+```
+
 You can then allow certain connections:
 
 ```puppet
