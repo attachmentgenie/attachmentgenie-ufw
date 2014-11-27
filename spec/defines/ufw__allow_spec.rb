@@ -30,7 +30,7 @@ describe 'ufw::allow', :type => :define do
       let(:params) { {:ip => '192.0.2.68'} }
       it { should contain_exec('ufw-allow-tcp-from-any-to-192.0.2.68-port-all').
         with_command("ufw allow proto tcp from any to 192.0.2.68").
-        with_unless("ufw status | grep -qE '^192.0.2.68/tcp +ALLOW +Anywhere'")
+        with_unless("ufw status | grep -qE '^192.0.2.68/tcp +ALLOW +Anywhere$'")
       }
     end
 
@@ -51,11 +51,12 @@ describe 'ufw::allow', :type => :define do
       }
     end
 
-    context 'from $ip parameter' do
-      let(:params) { {:ip => '192.0.2.68'} }
-      it { should contain_exec('ufw-allow-tcp-from-192.0.2.69-to-192.0.2.69-port-all').
-        with_command("ufw allow proto tcp from 192.0.2.69 to 192.0.2.69").
-        with_unless("ufw status | grep -qE '^192.0.2.69/tcp +ALLOW +192.0.2.69/tcp'")
+    context 'when from is a specific ip address' do
+      let(:facts) { {:ipaddress_eth0 => '192.0.2.68'} }
+      let(:params) { {:from => '192.0.2.69'} }
+      it { should contain_exec('ufw-allow-tcp-from-192.0.2.69-to-192.0.2.68-port-all').
+        with_command("ufw allow proto tcp from 192.0.2.69 to 192.0.2.68").
+        with_unless("ufw status | grep -qE '^192.0.2.68/tcp +ALLOW +192.0.2.69/tcp$'")
       }
     end
   end
