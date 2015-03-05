@@ -1,6 +1,7 @@
 spec/fixtures
+/.bundle/
+/.idea/
 /.project
-pkg/
 /pkg
 Gemfile.lock
 .*.sw*
