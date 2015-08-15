@@ -53,10 +53,13 @@ class ufw(
   }
 
   service { 'ufw':
-    ensure    => running,
-    enable    => true,
-    hasstatus => true,
-    subscribe => Package['ufw'],
+    ensure      => running,
+    hasstatus   => true,
+    hasrestart  => true,
+    path        => '/bin:/sbin:/usr/bin:/usr/sbin',
+    status      => 'ufw status | grep -q "Status: active"',
+    restart     => 'ufw disable && ufw --force enable',
+    subscribe   => Package["ufw"],
   }
 
   # Hiera resource creation
