@@ -1,21 +1,22 @@
 # Class ufw
 #
-#  installs and enables Ubuntu's "uncomplicated" firewall.
-#  Careful calling this class alone, was it will by default
-#  enable ufw, and disable all incoming traffic.
+#  Installs and enables Ubuntu's "uncomplicated" firewall.
+#
+#  Be careful calling this class alone, it will by default enable ufw
+# and disable all incoming traffic.
 class ufw(
   $allow   = {},
   $deny    = {},
+  $forward = 'DROP',
   $limit   = {},
   $logging = {},
   $reject  = {},
-  $forward = 'DROP',
 ) {
 
   validate_re($forward, 'ACCEPT|DROP|REJECT')
 
   Exec {
-    path     => '/sbin:/usr/sbin:/bin:/usr/bin',
+    path     => '/bin:/sbin:/usr/bin:/usr/sbin',
     provider => 'posix',
   }
 
@@ -46,26 +47,27 @@ class ufw(
   }
 
   file_line { 'forward policy':
-    path   => '/etc/default/ufw',
-    line   => "DEFAULT_FORWARD_POLICY=\"${forward}\"",
-    match  => '^DEFAULT_FORWARD_POLICY=',
-    notify => Service['ufw'],
+    line    => "DEFAULT_FORWARD_POLICY=\"${forward}\"",
+    match   => '^DEFAULT_FORWARD_POLICY=',
+    notify  => Service['ufw'],
+    path    => '/etc/default/ufw',
+    require => Package['ufw'],
   }
 
   service { 'ufw':
-    ensure      => running,
-    hasstatus   => true,
-    hasrestart  => true,
-    path        => '/bin:/sbin:/usr/bin:/usr/sbin',
-    status      => 'ufw status | grep -q "Status: active"',
-    restart     => 'ufw disable && ufw --force enable',
-    subscribe   => Package["ufw"],
+    ensure    => running,
+    enable    => true,
+    #hasrestart => true,
+    hasstatus => true,
+    #restart   => 'ufw disable && ufw --force enable',
+    status    => 'ufw status | grep -q "Status: active"',
+    subscribe => Package['ufw'],
   }
 
   # Hiera resource creation
-  create_resources('ufw::allow', hiera_hash('ufw::allow', $allow))
-  create_resources('ufw::deny', hiera_hash('ufw::deny', $deny))
-  create_resources('ufw::limit', hiera_hash('ufw::limit', $limit))
-  create_resources('ufw::logging', hiera_hash('ufw::logging', $logging))
-  create_resources('ufw::reject', hiera_hash('ufw::reject', $reject))
+  create_resources('::ufw::allow',  $allow)
+  create_resources('::ufw::deny', $deny)
+  create_resources('::ufw::limit', $limit)
+  create_resources('::ufw::logging', $logging)
+  create_resources('::ufw::reject', $reject)
 }
