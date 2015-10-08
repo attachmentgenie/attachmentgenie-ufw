@@ -26,6 +26,14 @@ class { 'ufw':
 }
 ```
 
+You can change block also the outgoing traffic by default:
+
+```puppet
+class { 'ufw':
+  deny_outgoing => true,
+}
+```
+
 You can then allow certain connections:
 
 ```puppet
