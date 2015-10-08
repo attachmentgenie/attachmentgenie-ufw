@@ -50,9 +50,10 @@ ufw::allow { "allow-http-on-specific-interface":
   ip => "10.0.0.20",
 }
 
-ufw::allow { "allow-dns-over-udp":
+ufw::allow { "allow-outgoing-dns-over-udp":
   port => 53,
   proto => "udp",
+  direction => "out",
 }
 ```
 
