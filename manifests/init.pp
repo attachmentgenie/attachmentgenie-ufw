@@ -11,6 +11,7 @@ class ufw(
   $limit   = {},
   $logging = {},
   $reject  = {},
+  $deny_outgoing = false,
 ) {
 
   validate_re($forward, 'ACCEPT|DROP|REJECT')
@@ -28,7 +29,14 @@ class ufw(
 
   exec { 'ufw-default-deny':
     command => 'ufw default deny',
-    unless  => 'ufw status verbose | grep -q "Default: deny (incoming), allow (outgoing)"',
+    unless  => 'ufw status verbose | grep -q "Default: deny (incoming)"',
+  }
+
+  if ($deny_outgoing) {
+    exec { 'ufw-default-deny-outgoing':
+      command => 'ufw default deny outgoing',
+      unless  => 'ufw status verbose | grep -q "Default: deny (outgoing)"',
+    }
   }
 
   case $::lsbdistcodename {
