@@ -1,5 +1,10 @@
 # Define ufw::allow
-define ufw::allow($proto='tcp', $port='all', $ip='', $from='any') {
+define ufw::allow($proto='tcp', $port='all', $ip='', $from='any', $direction='in') {
+
+  $dir = $direction ? {
+    'out'   => 'OUT',
+    default => ''
+  }
 
   if $ip == '' {
     $ipadr = pick($::ipaddress_eth0, $::ipaddress, 'any')
@@ -11,6 +16,14 @@ define ufw::allow($proto='tcp', $port='all', $ip='', $from='any') {
   $ipver = $ipadr ? {
     /:/     => 'v6',
     default => 'v4',
+  }
+
+  $ipadr_match = $ipadr ? {
+    'any'   => $ipver ? {
+      'v4' => 'Anywhere',
+      'v6' => 'Anywhere \(v6\)',
+    },
+    default => $ipadr,
   }
 
   $from_match = $from ? {
@@ -32,18 +45,18 @@ define ufw::allow($proto='tcp', $port='all', $ip='', $from='any') {
   }
 
   $command = $port ? {
-    'all'   => "ufw allow proto ${proto} from ${from} to ${ipadr}",
-    default => "ufw allow proto ${proto} from ${from} to ${ipadr} port ${port}",
+    'all'   => "ufw allow ${dir} proto ${proto} from ${from} to ${ipadr}",
+    default => "ufw allow ${dir} proto ${proto} from ${from} to ${ipadr} port ${port}",
   }
 
   $unless  = "${ipadr}:${port}" ? {
-    'any:all'    => "ufw status | grep -qE ' +ALLOW +${from_match}$'",
-    /[0-9]:all$/ => "ufw status | grep -qE '^${ipadr}${proto_match} +ALLOW +${from_match}${from_proto_match}$'",
+    'any:all'    => "ufw status | grep -qE ' +ALLOW ${dir} +${from_match}$'",
+    /[0-9]:all$/ => "ufw status | grep -qE '^${ipadr_match}${proto_match} +ALLOW +${from_match}${from_proto_match}$'",
     /^any:[0-9]/ => "ufw status | grep -qE '^${port}${proto_match} +ALLOW +${from_match}$'",
-    default      => "ufw status | grep -qE '^${ipadr} ${port}${proto_match} +ALLOW +${from_match}$'",
+    default      => "ufw status | grep -qE '^${ipadr_match} ${port}${proto_match} +ALLOW +${from_match}$'",
   }
 
-  exec { "ufw-allow-${proto}-from-${from}-to-${ipadr}-port-${port}":
+  exec { "ufw-allow-${direction}-${proto}-from-${from}-to-${ipadr}-port-${port}":
     command  => $command,
     path     => '/usr/sbin:/bin:/usr/bin',
     provider => 'posix',
