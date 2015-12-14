@@ -1,8 +1,6 @@
-spec/fixtures
-/.bundle/
-/.idea/
-/.project
-/log/
-/pkg
+coverage/
 Gemfile.lock
-.*.sw*
+log/
+pkg/
+spec/fixtures/
+vendor/

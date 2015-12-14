@@ -1,24 +1,44 @@
 source ENV['GEM_SOURCE'] || "https://rubygems.org"
 
-group :development, :unit_tests do
-  gem 'rake',                    :require => false
+def location_for(place, fake_version = nil)
+  if place =~ /^(git[:@][^#]*)#(.*)/
+    [fake_version, { :git => $1, :branch => $2, :require => false }].compact
+  elsif place =~ /^file:\/\/(.*)/
+    ['>= 0', { :path => File.expand_path($1), :require => false }]
+  else
+    [place, { :require => false }]
+  end
+end
+
+group :test do
   gem 'rspec-core', '3.1.7',     :require => false
-  gem 'rspec-puppet',            :require => false
   gem 'puppetlabs_spec_helper',  :require => false
-  gem 'puppet-lint',             :require => false
   gem 'simplecov',               :require => false
   gem 'puppet_facts',            :require => false
   gem 'json',                    :require => false
   gem 'metadata-json-lint',      :require => false
 end
 
-group :system_tests do
-  gem 'beaker-rspec',                 :require => false
-  gem 'beaker-puppet_install_helper', :require => false
-  gem 'guard',                        :require => false
-  gem 'guard-rake',                   :require => false
-  gem 'serverspec',                   :require => false
+group :development do
+  gem 'travis',       :require => false
+  gem 'travis-lint',  :require => false
+  gem 'guard-rake',   :require => false
 end
+
+group :system_tests do
+  gem 'beaker',                        :require => false
+  if beaker_version = ENV['BEAKER_VERSION']
+    gem 'beaker', *location_for(beaker_version)
+  end
+  if beaker_rspec_version = ENV['BEAKER_RSPEC_VERSION']
+    gem 'beaker-rspec', *location_for(beaker_rspec_version)
+  else
+    gem 'beaker-rspec',  :require => false
+  end
+  gem 'beaker-puppet_install_helper',  :require => false
+end
+
+
 
 if facterversion = ENV['FACTER_GEM_VERSION']
   gem 'facter', facterversion, :require => false
