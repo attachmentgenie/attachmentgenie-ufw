@@ -1,0 +1,10 @@
+HOSTS:
+  centos-72-x64:
+    roles:
+      - master
+    platform: el-7-x86_64
+    box : centos-72-x64-vbox4210-nocm
+    box_url : http://puppet-vagrant-boxes.puppetlabs.com/centos-72-x64-vbox4210-nocm.box
+    hypervisor : vagrant
+CONFIG:
+  type: foss
