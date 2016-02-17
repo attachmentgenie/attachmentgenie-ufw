@@ -10,6 +10,11 @@ guard 'rake', :task => 'lint' do
   watch(%r{^manifests\/.+\.pp$})
 end
 
+guard 'rake', :task => 'strings:generate' do
+  watch(%r{^manifests\/.+\.pp$})
+  watch(%r{^README.md$})
+end
+
 guard 'rake', :task => 'spec' do
   watch(%r{^lib/(.+)\.rb$})     { |m| "spec/lib/#{m[1]}_spec.rb" }
   watch(%r{^manifests\/.+\.pp$})
