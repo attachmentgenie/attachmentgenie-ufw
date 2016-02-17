@@ -1,7 +1,7 @@
 ---
 sudo: false
 language: ruby
-bundler_args: --without development system_tests
+bundler_args: --without development system_tests --deployment
 script: "bundle exec rake validate lint spec SPEC_OPTS='--color --format documentation'"
 matrix:
   fast_finish: true
