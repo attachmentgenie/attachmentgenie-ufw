@@ -37,10 +37,10 @@ define ufw::allow($proto='tcp', $port='all', $ip='', $from='any') {
   }
 
   $unless  = "${ipadr}:${port}" ? {
-    'any:all'    => "ufw status | grep -qE ' +ALLOW +${from_match}$'",
-    /[0-9]:all$/ => "ufw status | grep -qE '^${ipadr}${proto_match} +ALLOW +${from_match}${from_proto_match}$'",
-    /^any:[0-9]/ => "ufw status | grep -qE '^${port}${proto_match} +ALLOW +${from_match}$'",
-    default      => "ufw status | grep -qE '^${ipadr} ${port}${proto_match} +ALLOW +${from_match}$'",
+    'any:all'    => "ufw status | grep -qE ' +ALLOW +${from_match}( +.*)?$'",
+    /[0-9]:all$/ => "ufw status | grep -qE '^${ipadr}${proto_match} +ALLOW +${from_match}${from_proto_match}( +.*)?$'",
+    /^any:[0-9]/ => "ufw status | grep -qE '^${port}${proto_match} +ALLOW +${from_match}( +.*)?$'",
+    default      => "ufw status | grep -qE '^${ipadr} ${port}${proto_match} +ALLOW +${from_match}( +.*)?$'",
   }
 
   exec { "ufw-allow-${proto}-from-${from}-to-${ipadr}-port-${port}":
