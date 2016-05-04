@@ -25,8 +25,8 @@ define ufw::reject($proto='tcp', $port='all', $ip='', $from='any') {
   }
 
   $unless   = $port ? {
-    'all'   => "ufw status | grep -qE '^${ipadr}/${proto} +REJECT +${from_match}$'",
-    default => "ufw status | grep -qEe '^${ipadr} ${port}/${proto} +REJECT +${from_match}$' -qe '^${port}/${proto} +REJECT +${from_match}$'",
+    'all'   => "ufw status | grep -qE '^${ipadr}/${proto} +REJECT +${from_match}( +.*)?$'",
+    default => "ufw status | grep -qEe '^${ipadr} ${port}/${proto} +REJECT +${from_match}( +.*)?$' -qe '^${port}/${proto} +REJECT +${from_match}( +.*)?$'",
   }
 
   exec { "ufw-reject-${proto}-from-${from}-to-${ipadr}-port-${port}":
