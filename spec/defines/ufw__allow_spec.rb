@@ -68,4 +68,12 @@ describe 'ufw::allow', :type => :define do
       with_unless("ufw status | grep -qE '^8080/tcp +ALLOW +Anywhere$'")
     }
   end
+
+  context 'with ensure => absent' do
+    let(:params) { {:ensure => 'absent'} }
+    it { should contain_exec('ufw-delete-tcp-from-any-to-any-port-all').
+      with_command("ufw delete allow proto tcp from any to any").
+      with_onlyif("ufw status | grep -qE ' +ALLOW +Anywhere$'")
+    }
+  end
 end

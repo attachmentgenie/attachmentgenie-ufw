@@ -74,5 +74,16 @@ ufw::logging { "prevent-logging":
 }
 ```
 
+To delete a single rule, add `ensure => absent` to the allow.
+```puppet
+ufw::allow { "allow-ssh-from-all":
+  ensure => absent,
+  port   => 22,
+}
+```
+Like most Puppet resources, allow this to successfully run on all your machines
+at least once before removing it, in order to assure that the rule is gone.
+
+
 ## Known Limitations ##
 Currently it is not possible to purge unmanaged rules and remove defined rules this will need to be done manually. (see #21 )
