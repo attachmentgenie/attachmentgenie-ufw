@@ -1,8 +1,6 @@
 require 'puppetlabs_spec_helper/rake_tasks'
 require 'puppet-lint/tasks/puppet-lint'
-if File.exist?('puppet-strings/rake_tasks')
-    require 'puppet-strings/rake_tasks'
-end
+require 'puppet-strings/rake_tasks'
 
 PuppetLint.configuration.fail_on_warnings = true
 PuppetLint.configuration.send('relative')

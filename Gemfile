@@ -13,30 +13,26 @@ end
 group :test do
   gem 'rspec-core',              :require => false
   gem 'puppetlabs_spec_helper',  :require => false
+  gem 'puppet-strings',          :require => false
   gem 'simplecov',               :require => false
   gem 'puppet_facts',            :require => false
   gem 'metadata-json-lint',      :require => false
 end
 
 group :development do
-  gem 'travis',          :require => false
-  gem 'travis-lint',     :require => false
-  gem 'guard-rake',      :require => false
-  gem 'puppet-strings',  :require => false, :git => 'https://github.com/puppetlabs/puppetlabs-strings.git'
-  gem 'redcarpet',       :require => false
+  gem 'travis',       :require => false
+  gem 'travis-lint',  :require => false
+  gem 'guard-rake',   :require => false
+  gem 'redcarpet',    :require => false
 end
 
-group :system_tests do
-  gem 'beaker',                        :require => false
-  if beaker_version = ENV['BEAKER_VERSION']
-    gem 'beaker', *location_for(beaker_version)
-  end
-  if beaker_rspec_version = ENV['BEAKER_RSPEC_VERSION']
-    gem 'beaker-rspec', *location_for(beaker_rspec_version)
-  else
-    gem 'beaker-rspec',  :require => false
-  end
-  gem 'beaker-puppet_install_helper',  :require => false
+group :integration do
+  gem 'test-kitchen', '~> 1.4',     :require => false
+  gem 'kitchen-vagrant',            :require => false
+  gem 'kitchen-puppet',             :require => false
+  gem 'librarian-puppet',           :require => false
+  gem 'kitchen-inspec',             :require => false
+  gem 'concurrent-ruby', '~> 0.9',  :require => false
 end
 
 

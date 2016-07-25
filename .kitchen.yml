@@ -1,0 +1,29 @@
+---
+driver:
+  name: vagrant
+provisioner:
+  name: puppet_apply
+  require_chef_for_busser: false
+  manifests_path: examples
+verifier:
+  name: inspec
+platforms:
+- name: ubuntu-12.04
+- name: ubuntu-14.04
+  provisioner:
+    puppet_apt_repo: https://apt.puppetlabs.com/puppetlabs-release-trusty.deb
+- name: ubuntu-16.04
+  driver_config:
+    box: geerlingguy/ubuntu1604
+  provisioner:
+    puppet_apt_repo: https://apt.puppetlabs.com/puppetlabs-release-pc1-xenial.deb
+- name: debian-7.10
+  provisioner:
+    puppet_apt_repo: https://apt.puppetlabs.com/puppetlabs-release-jessie.deb
+- name: debian-8.5
+  provisioner:
+    puppet_apt_repo: https://apt.puppetlabs.com/puppetlabs-release-wheezy.deb
+suites:
+  - name: default
+    provisioner:
+      manifest: init.pp
