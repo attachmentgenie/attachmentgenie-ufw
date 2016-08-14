@@ -9,8 +9,6 @@ provisioner:
 verifier:
   name: inspec
   suite_name: default
-  inspec_tests:
-    - https://github.com/dev-sec/tests-ssh-hardening
 platforms:
 - name: ubuntu-14.04
   provisioner:
