@@ -35,8 +35,6 @@ group :integration do
   gem 'concurrent-ruby', '~> 0.9',  :require => false
 end
 
-
-
 if facterversion = ENV['FACTER_GEM_VERSION']
   gem 'facter', facterversion, :require => false
 else
