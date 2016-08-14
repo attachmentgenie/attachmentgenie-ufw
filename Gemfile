@@ -14,28 +14,30 @@ group :test do
   gem 'json', '1.8.3',           :require => false
   gem 'json_pure', '2.0.1',      :require => false
   gem 'metadata-json-lint',      :require => false
-  gem 'puppetlabs_spec_helper',  :require => false
-  gem 'puppet_facts',            :require => false
   gem 'puppet-strings',          :require => false
+  gem 'puppet_facts',            :require => false
+  gem 'puppetlabs_spec_helper',  :require => false
   gem 'rspec-core',              :require => false
   gem 'simplecov',               :require => false
 end
 
 group :development do
-  gem 'guard-rake',              :require => false
-  gem 'redcarpet',               :require => false
-  gem 'travis',                  :require => false
-  gem 'travis-lint',             :require => false
+  gem 'guard-rake',   :require => false
+  gem 'redcarpet',    :require => false
+  gem 'travis',       :require => false
+  gem 'travis-lint',  :require => false
 end
 
 group :integration do
-  gem 'test-kitchen', '~> 1.4',     :require => false
-  gem 'kitchen-vagrant',            :require => false
-  gem 'kitchen-puppet',             :require => false
-  gem 'librarian-puppet',           :require => false
-  gem 'kitchen-inspec',             :require => false
   gem 'concurrent-ruby', '~> 0.9',  :require => false
+  gem 'kitchen-inspec',             :require => false
+  gem 'kitchen-puppet',             :require => false
+  gem 'kitchen-vagrant',            :require => false
+  gem 'librarian-puppet',           :require => false
+  gem 'test-kitchen', '~> 1.4',     :require => false
 end
+
+
 
 if facterversion = ENV['FACTER_GEM_VERSION']
   gem 'facter', facterversion, :require => false
