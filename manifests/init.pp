@@ -57,10 +57,7 @@ class ufw(
   service { 'ufw':
     ensure    => running,
     enable    => true,
-    #hasrestart => true,
     hasstatus => true,
-    #restart   => 'ufw disable && ufw --force enable',
-    status    => 'ufw status | grep -q "Status: active"',
     subscribe => Package['ufw'],
   }
 
