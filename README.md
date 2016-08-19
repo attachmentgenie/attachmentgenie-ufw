@@ -26,6 +26,14 @@ class { 'ufw':
 }
 ```
 
+You can change block also the outgoing traffic by default:
+
+```puppet
+class { 'ufw':
+  deny_outgoing => true,
+}
+```
+
 You can then allow certain connections:
 
 ```puppet
@@ -42,9 +50,10 @@ ufw::allow { "allow-http-on-specific-interface":
   ip => "10.0.0.20",
 }
 
-ufw::allow { "allow-dns-over-udp":
+ufw::allow { "allow-outgoing-dns-over-udp":
   port => 53,
   proto => "udp",
+  direction => "out",
 }
 ```
 
