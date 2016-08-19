@@ -5,7 +5,13 @@ define ufw::allow(
   $ip='',
   $from='any',
   $ensure='present',
+  $direction='in',
 ) {
+
+  $dir = $direction ? {
+    'out'   => 'OUT',
+    default => ''
+  }
 
   if $ip == '' {
     $ipadr = pick($::ipaddress_eth0, $::ipaddress, 'any')
@@ -17,6 +23,14 @@ define ufw::allow(
   $ipver = $ipadr ? {
     /:/     => 'v6',
     default => 'v4',
+  }
+
+  $ipadr_match = $ipadr ? {
+    'any'   => $ipver ? {
+      'v4' => 'Anywhere',
+      'v6' => 'Anywhere \(v6\)',
+    },
+    default => $ipadr,
   }
 
   $from_match = $from ? {
@@ -38,15 +52,15 @@ define ufw::allow(
   }
 
   $grep_existing_rule = "${ipadr}:${port}" ? {
-    'any:all'    => "grep -qE ' +ALLOW +${from_match}$'",
+    'any:all'    => "grep -qE ' +ALLOW ${dir} +${from_match}$'",
     /[0-9]:all$/ => "grep -qE '^${ipadr}${proto_match} +ALLOW +${from_match}${from_proto_match}$'",
     /^any:[0-9]/ => "grep -qE '^${port}${proto_match} +ALLOW +${from_match}$'",
     default      => "grep -qE '^${ipadr} ${port}${proto_match} +ALLOW +${from_match}$'",
   }
 
   $rule = $port ? {
-    'all'   => "allow proto ${proto} from ${from} to ${ipadr}",
-    default => "allow proto ${proto} from ${from} to ${ipadr} port ${port}",
+    'all'   => "allow ${dir} proto ${proto} from ${from} to ${ipadr}",
+    default => "allow ${dir} proto ${proto} from ${from} to ${ipadr} port ${port}",
   }
 
   if $ensure == 'absent' {
@@ -65,13 +79,13 @@ define ufw::allow(
   else {
     $command = "ufw ${rule}"
     $unless  = "${ipadr}:${port}" ? {
-      'any:all'    => "ufw status | grep -qE ' +ALLOW +${from_match}( +.*)?$'",
-      /[0-9]:all$/ => "ufw status | grep -qE '^${ipadr}${proto_match} +ALLOW +${from_match}${from_proto_match}( +.*)?$'",
+      'any:all'    => "ufw status | grep -qE ' +ALLOW ${dir} +${from_match}( +.*)?$'",
+      /[0-9]:all$/ => "ufw status | grep -qE '^${ipadr_match}${proto_match} +ALLOW +${from_match}${from_proto_match}( +.*)?$'",
       /^any:[0-9]/ => "ufw status | grep -qE '^${port}${proto_match} +ALLOW +${from_match}( +.*)?$'",
-      default      => "ufw status | grep -qE '^${ipadr} ${port}${proto_match} +ALLOW +${from_match}( +.*)?$'",
+      default      => "ufw status | grep -qE '^${ipadr_match} ${port}${proto_match} +ALLOW +${from_match}( +.*)?$'",
     }
 
-    exec { "ufw-allow-${proto}-from-${from}-to-${ipadr}-port-${port}":
+  exec { "ufw-allow-${direction}-${proto}-from-${from}-to-${ipadr}-port-${port}":
       command  => $command,
       path     => '/usr/sbin:/bin:/usr/bin',
       provider => 'posix',
