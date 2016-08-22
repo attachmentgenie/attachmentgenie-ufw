@@ -39,7 +39,7 @@ define ufw::reject($proto='tcp', $port='all', $ip='', $from='any', $direction='i
 
   $unless   = $port ? {
     'all'   => "ufw status | grep -qE '^${ipadr_match}/${proto} +REJECT ${dir} +${from_match}( +.*)?$'",
-    default => "ufw status | grep -qEe '^^${ipadr_match} ${port}/${proto} +REJECT ${dir} +${from_match}( +.*)?$' -qe '^${port}/${proto} +REJECT ${dir} +${from_match}( +.*)?$'", # lint:ignore:140chars
+    default => "ufw status | grep -qEe '^${ipadr_match} ${port}/${proto} +REJECT ${dir} +${from_match}( +.*)?$' -qe '^${port}/${proto} +REJECT ${dir} +${from_match}( +.*)?$'", # lint:ignore:140chars
   }
 
   exec { "ufw-reject-${direction}-${proto}-from-${from}-to-${ipadr}-port-${port}":
