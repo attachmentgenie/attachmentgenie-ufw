@@ -1,5 +1,17 @@
 # Define ufw::deny enables us to define deny rules for ufw
-define ufw::deny($proto='tcp', $port='all', $ip='', $from='any', $direction='in') {
+define ufw::deny(
+  $direction ='IN',
+  $from = 'any',
+  $ip = '',
+  $port = 'all',
+  $proto = 'tcp',
+) {
+  validate_re($direction, 'IN|OUT')
+  validate_re($proto, 'tcp|udp')
+  validate_string($from,
+    $ip,
+    $port
+  )
 
   $dir = $direction ? {
     'out'   => 'OUT',

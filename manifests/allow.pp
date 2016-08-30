@@ -1,12 +1,19 @@
 # Define ufw::allow
 define ufw::allow(
-  $proto='tcp',
-  $port='all',
-  $ip='',
-  $from='any',
-  $ensure='present',
-  $direction='in',
+  $direction ='IN',
+  $ensure ='present',
+  $from = 'any',
+  $ip = '',
+  $port = 'all',
+  $proto = 'tcp',
 ) {
+  validate_re($direction, 'IN|OUT')
+  validate_re($ensure, 'absent|present')
+  validate_re($proto, 'tcp|udp')
+  validate_string($from,
+    $ip,
+    $port
+  )
 
   $dir = $direction ? {
     'out'   => 'OUT',
@@ -79,7 +86,8 @@ define ufw::allow(
   else {
     $command = "ufw ${rule}"
     $unless  = "${ipadr}:${port}" ? {
-      'any:all'    => "ufw status | grep -qE ' +ALLOW ${dir} +${from_match}( +.*)?$'",
+      'any:all'    => "ufw status | grep -qE ' +ALLOW +${from_match}${proto_match}$'",
+      #'any:all'    => "ufw status | grep -qE ' +ALLOW ${dir} +${from_match}( +.*)?$'",
       /[0-9]:all$/ => "ufw status | grep -qE '^${ipadr_match}${proto_match} +ALLOW +${from_match}${from_proto_match}( +.*)?$'",
       /^any:[0-9]/ => "ufw status | grep -qE '^${port}${proto_match} +ALLOW +${from_match}( +.*)?$'",
       default      => "ufw status | grep -qE '^${ipadr_match} ${port}${proto_match} +ALLOW +${from_match}( +.*)?$'",

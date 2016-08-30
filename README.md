@@ -5,9 +5,6 @@ Puppet UFW Module
 
 Module for configuring UFW (Uncomplicated Firewall).
 
-Tested on Debian GNU/Linux 6.0 Squeeze and Ubuntu 12.04 LTS with Puppet 2.7.
-Patches for other operating systems are welcome.
-
 Usage
 -----
 
@@ -73,14 +70,6 @@ You can also rate limit certain ports (the IP is blocked if it initiates
 
 ```puppet
 ufw::limit { 22: }
-```
-
-You can also adjust the ufw logging settings
-
-```puppet
-ufw::logging { "prevent-logging":
-    level => 'off',
-}
 ```
 
 To delete a single rule, add `ensure => absent` to the allow.

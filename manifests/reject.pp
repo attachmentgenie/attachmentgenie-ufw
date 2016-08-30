@@ -1,4 +1,16 @@
-define ufw::reject($proto='tcp', $port='all', $ip='', $from='any', $direction='in') {
+define ufw::reject(
+  $direction ='IN',
+  $from = 'any',
+  $ip = '',
+  $port = 'all',
+  $proto = 'tcp',
+) {
+  validate_re($direction, 'IN|OUT')
+  validate_re($proto, 'tcp|udp')
+  validate_string($from,
+    $ip,
+    $port
+  )
 
   $dir = $direction ? {
     'out'   => 'OUT',
@@ -16,20 +28,20 @@ define ufw::reject($proto='tcp', $port='all', $ip='', $from='any', $direction='i
     default => 'v4',
   }
 
-  $ipadr_match = $ipadr ? {
-    'any'   => $ipver ? {
-      'v4' => 'Anywhere',
-      'v6' => 'Anywhere \(v6\)',
-    },
-    default => $ipadr,
-  }
-
   $from_match = $from ? {
     'any'   => $ipver ? {
       'v4' => 'Anywhere',
       'v6' => 'Anywhere \(v6\)',
       },
     default => $from,
+  }
+
+  $ipadr_match = $ipadr ? {
+    'any'   => $ipver ? {
+      'v4' => 'Anywhere',
+      'v6' => 'Anywhere \(v6\)',
+    },
+    default => $ipadr,
   }
 
   $command  = $port ? {

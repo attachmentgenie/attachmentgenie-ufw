@@ -5,74 +5,42 @@
 #  Be careful calling this class alone, it will by default enable ufw
 # and disable all incoming traffic.
 class ufw(
-  $allow   = {},
-  $deny    = {},
-  $forward = 'DROP',
-  $limit   = {},
-  $logging = {},
-  $reject  = {},
-  $deny_outgoing = false,
-) {
-
-  validate_re($forward, 'ACCEPT|DROP|REJECT')
+  $allow          = $::ufw::params::allow,
+  $deny           = $::ufw::params::deny,
+  $deny_outgoing  = $::ufw::params::deny_outgoing,
+  $forward        = $::ufw::params::forward,
+  $limit          = $::ufw::params::limit,
+  $log_level      = $::ufw::params::log_level,
+  $manage_service = $::ufw::params::manage_service,
+  $reject         = $::ufw::params::reject,
+  $service_name   = $::ufw::params::service_name,
+) inherits ufw::params {
+  validate_bool( $deny_outgoing,
+    $manage_service,
+  )
+  validate_hash( $allow,
+    $deny,
+    $limit,
+    $reject
+  )
+  validate_re( $forward, 'ACCEPT|DROP|REJECT')
+  validate_re( $log_level, 'off|low|medium|high|full')
+  validate_string( $service_name)
 
   Exec {
     path     => '/bin:/sbin:/usr/bin:/usr/sbin',
     provider => 'posix',
   }
 
-  package { 'ufw':
-    ensure => present,
-  }
-
-  Package['ufw'] -> Exec['ufw-default-deny'] -> Exec['ufw-enable']
-
-  exec { 'ufw-default-deny':
-    command => 'ufw default deny',
-    unless  => 'ufw status verbose | grep -q "Default: deny (incoming)"',
-  }
-
-  if ($deny_outgoing) {
-    exec { 'ufw-default-deny-outgoing':
-      command => 'ufw default deny outgoing',
-      unless  => 'ufw status verbose | grep -q "Default: deny (outgoing)"',
-    }
-  }
-
-  case $::lsbdistcodename {
-    'squeeze': {
-      exec { 'ufw-enable':
-        command => 'yes | ufw enable',
-        unless  => 'ufw status | grep "Status: active"',
-      }
-    }
-    default: {
-      exec { 'ufw-enable':
-        command => 'ufw --force enable',
-        unless  => 'ufw status | grep "Status: active"',
-      }
-    }
-  }
-
-  file_line { 'forward policy':
-    line    => "DEFAULT_FORWARD_POLICY=\"${forward}\"",
-    match   => '^DEFAULT_FORWARD_POLICY=',
-    notify  => Service['ufw'],
-    path    => '/etc/default/ufw',
-    require => Package['ufw'],
-  }
-
-  service { 'ufw':
-    ensure    => running,
-    enable    => true,
-    hasstatus => true,
-    subscribe => Package['ufw'],
-  }
+  anchor { 'ufw::begin': } ->
+  class{'::ufw::install':} ->
+  class{'::ufw::config':} ~>
+  class{'::ufw::service':}
+  anchor { 'ufw::end': }
 
   # Hiera resource creation
   create_resources('::ufw::allow',  $allow)
   create_resources('::ufw::deny', $deny)
   create_resources('::ufw::limit', $limit)
-  create_resources('::ufw::logging', $logging)
   create_resources('::ufw::reject', $reject)
 }
