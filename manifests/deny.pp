@@ -1,4 +1,19 @@
-# Define ufw::deny enables us to define deny rules for ufw
+#  Installs and enables Ubuntu's "uncomplicated" firewall.
+#
+#  Be careful calling this class alone, it will by default enable ufw
+# and disable all incoming traffic.
+#
+#
+# @example when declaring the ufw class
+#  ufw::deny { 'deny-ssh-from-all':
+#    port => '22',
+#  }
+#
+# @param direction (String) The first parameter for this class
+# @param from (String) Ip address to deny access from. default: any
+# @param ip (String) Ip address to deny access to. default: ''
+# @param port (String) Port to act on. default: all
+# @param proto (String) Protocol to use. default: tcp
 define ufw::deny(
   $direction ='IN',
   $from = 'any',

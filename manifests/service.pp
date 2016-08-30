@@ -1,4 +1,5 @@
-# == Class ufw::service
+#  Installs and enables Ubuntu's "uncomplicated" firewall.
+#
 class ufw::service inherits ufw {
   $manage_service_ensure = $::ufw::manage_service ? {
     true    => 'running',

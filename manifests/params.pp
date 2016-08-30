@@ -1,3 +1,5 @@
+#  Installs and enables Ubuntu's "uncomplicated" firewall.
+#
 class ufw::params {
   $allow          = {}
   $deny           = {}

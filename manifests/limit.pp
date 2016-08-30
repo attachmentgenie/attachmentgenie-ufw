@@ -1,7 +1,15 @@
-# Define ufw::limit
+#  Installs and enables Ubuntu's "uncomplicated" firewall.
 #
-#   enable connection rate limiting for this $proto
+#  Be careful calling this class alone, it will by default enable ufw
+# and disable all incoming traffic.
 #
+#
+# @example when declaring the ufw class
+#  ufw::deny { 'deny-ssh-from-all':
+#    port => '22',
+#  }
+#
+# @param proto (String) Protocol to use default: tcp
 define ufw::limit(
   $proto='tcp'
 ) {

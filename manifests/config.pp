@@ -1,3 +1,5 @@
+#  Installs and enables Ubuntu's "uncomplicated" firewall.
+#
 class ufw::config inherits ufw {
   exec { "ufw-logging-${::ufw::log_level}":
     command => "ufw logging ${::ufw::log_level}",

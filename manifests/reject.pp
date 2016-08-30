@@ -1,3 +1,19 @@
+#  Installs and enables Ubuntu's "uncomplicated" firewall.
+#
+#  Be careful calling this class alone, it will by default enable ufw
+# and disable all incoming traffic.
+#
+#
+# @example when declaring the ufw class
+#  ufw::deny { 'deny-ssh-from-all':
+#    port => '22',
+#  }
+#
+# @param direction (String) The first parameter for this class
+# @param from (String) Ip address to reject access from. default: any
+# @param ip (String) Ip address to reject access to. default: ''
+# @param port (String) Port to act on. default: all
+# @param proto (String) Protocol to use. default: tcp
 define ufw::reject(
   $direction ='IN',
   $from = 'any',

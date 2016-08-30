@@ -1,6 +1,6 @@
 class { 'ufw': }
 ufw::allow { 'allow-ssh-from-all':
-  port => 22,
+  port => '22',
 }
 ufw::allow { "allow-replication-from-${::fqdn}":
   proto => 'tcp',

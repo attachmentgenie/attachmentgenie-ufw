@@ -35,7 +35,7 @@ You can then allow certain connections:
 
 ```puppet
 ufw::allow { "allow-ssh-from-all":
-  port => 22,
+  port => '22',
 }
 
 ufw::allow { "allow-all-from-trusted":
@@ -43,12 +43,12 @@ ufw::allow { "allow-all-from-trusted":
 }
 
 ufw::allow { "allow-http-on-specific-interface":
-  port => 80,
+  port => '80',
   ip => "10.0.0.20",
 }
 
 ufw::allow { "allow-outgoing-dns-over-udp":
-  port => 53,
+  port => '53',
   proto => "udp",
   direction => "out",
 }
@@ -69,14 +69,14 @@ You can also rate limit certain ports (the IP is blocked if it initiates
 6 or more connections within 30 seconds):
 
 ```puppet
-ufw::limit { 22: }
+ufw::limit { '22': }
 ```
 
 To delete a single rule, add `ensure => absent` to the allow.
 ```puppet
 ufw::allow { "allow-ssh-from-all":
   ensure => absent,
-  port   => 22,
+  port   => '22',
 }
 ```
 Like most Puppet resources, allow this to successfully run on all your machines
