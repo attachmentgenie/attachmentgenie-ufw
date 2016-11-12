@@ -22,7 +22,7 @@ define ufw::reject(
   $proto = 'tcp',
 ) {
   validate_re($direction, 'IN|OUT')
-  validate_re($proto, 'tcp|udp')
+  validate_re($proto, 'tcp|udp|any')
   validate_string($from,
     $ip,
     $port

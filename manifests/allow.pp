@@ -25,7 +25,7 @@ define ufw::allow(
 ) {
   validate_re($direction, 'IN|OUT')
   validate_re($ensure, 'absent|present')
-  validate_re($proto, 'tcp|udp')
+  validate_re($proto, 'tcp|udp|any')
   validate_string($from,
     $ip,
     $port
