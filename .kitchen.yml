@@ -10,7 +10,6 @@ verifier:
   name: inspec
   suite_name: default
 platforms:
-- name: ubuntu-12.04
 - name: ubuntu-14.04
   provisioner:
     puppet_apt_repo: https://apt.puppetlabs.com/puppetlabs-release-trusty.deb
@@ -35,6 +34,3 @@ suites:
     provisioner:
       puppet_omnibus_url: https://raw.githubusercontent.com/petems/puppet-install-shell/master/install_puppet_agent.sh
       require_puppet_collections: true
-    excludes: [
-     'ubuntu-12.04'
-    ]
