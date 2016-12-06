@@ -39,10 +39,6 @@ def on_os_under_test
 end
 
 RSpec.configure do |c|
-  c.default_facts = {
-      :ipaddress       => '192.168.42.42',
-      :ipaddress_eth0  => '192.168.42.42',
-  }
   c.after(:suite) do
     RSpec::Puppet::Coverage.report!
   end
