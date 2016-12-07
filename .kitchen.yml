@@ -21,7 +21,7 @@ platforms:
   provisioner:
     puppet_apt_repo: https://apt.puppetlabs.com/puppetlabs-release-wheezy.deb
     puppet_apt_collections_repo: https://apt.puppetlabs.com/puppetlabs-release-pc1-wheezy.deb
-- name: debian-8.5
+- name: debian-8.6
   provisioner:
     puppet_apt_repo: https://apt.puppetlabs.com/puppetlabs-release-jessie.deb
     puppet_apt_collections_repo: https://apt.puppetlabs.com/puppetlabs-release-pc1-jessie.deb
