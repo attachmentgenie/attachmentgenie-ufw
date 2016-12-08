@@ -13,7 +13,7 @@ guard 'rake', :task => 'lint' do
   watch(%r{^tests\/.+\.pp$})
 end
 
-guard 'rake', :task => 'strings:generate' do
+guard 'rake', :task => 'strings:generate', :task_args => [''] do
   watch(%r{^manifests\/.+\.pp$})
   watch(%r{^README.md$})
 end
