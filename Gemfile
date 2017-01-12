@@ -11,8 +11,8 @@ def location_for(place, fake_version = nil)
 end
 
 group :test do
-  gem 'json', '1.8.3',           :require => false
-  gem 'json_pure', '2.0.1',      :require => false
+  gem 'json', '< 2.0.0',         :require => false if RUBY_VERSION < '2.0.0'
+  gem 'json_pure', '<= 2.0.1',   :require => false if RUBY_VERSION < '2.0.0'
   gem 'metadata-json-lint',      :require => false
   gem 'puppet-strings',          :require => false
   gem 'puppet_facts',            :require => false
