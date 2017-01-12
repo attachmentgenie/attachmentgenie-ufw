@@ -12,24 +12,17 @@ verifier:
 platforms:
 - name: ubuntu-14.04
   provisioner:
-    puppet_apt_repo: https://apt.puppetlabs.com/puppetlabs-release-trusty.deb
     puppet_apt_collections_repo: https://apt.puppetlabs.com/puppetlabs-release-pc1-trusty.deb
 - name: ubuntu-16.04
   provisioner:
     puppet_apt_collections_repo: https://apt.puppetlabs.com/puppetlabs-release-pc1-xenial.deb
 - name: debian-7.11
   provisioner:
-    puppet_apt_repo: https://apt.puppetlabs.com/puppetlabs-release-wheezy.deb
     puppet_apt_collections_repo: https://apt.puppetlabs.com/puppetlabs-release-pc1-wheezy.deb
 - name: debian-8.6
   provisioner:
-    puppet_apt_repo: https://apt.puppetlabs.com/puppetlabs-release-jessie.deb
     puppet_apt_collections_repo: https://apt.puppetlabs.com/puppetlabs-release-pc1-jessie.deb
 suites:
-  - name: puppet3
-    excludes: [
-     'ubuntu-16.04'
-    ]
   - name: puppet4
     provisioner:
       puppet_omnibus_url: https://raw.githubusercontent.com/petems/puppet-install-shell/master/install_puppet_agent.sh
