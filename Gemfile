@@ -11,22 +11,29 @@ def location_for(place, fake_version = nil)
 end
 
 group :test do
-  gem 'json', '< 2.0.0',         :require => false if RUBY_VERSION < '2.0.0'
-  gem 'json_pure', '<= 2.0.1',   :require => false if RUBY_VERSION < '2.0.0'
-  gem 'metadata-json-lint',      :require => false
-  gem 'puppet-strings',          :require => false
-  gem 'puppet_facts',            :require => false
-  gem 'puppetlabs_spec_helper',  :require => false
-  gem 'rspec-core',              :require => false
-  gem 'rspec-puppet-facts',      :require => false
-  gem 'simplecov',               :require => false
+  gem 'json', '< 2.0.0',             :require => false if RUBY_VERSION < '2.0.0'
+  gem 'json_pure', '<= 2.0.1',       :require => false if RUBY_VERSION < '2.0.0'
+  gem 'metadata-json-lint',          :require => false
+  gem 'parallel_tests',              :require => false
+  gem 'puppet-strings',              :require => false
+  gem 'puppet_facts',                :require => false
+  gem 'puppetlabs_spec_helper',      :require => false
+  gem 'rspec-core',                  :require => false
+  gem 'rspec-puppet-facts',          :require => false
+  gem 'rubocop', '~> 0.47.0',        :require => false if RUBY_VERSION >= '2.3.0'
+  gem 'rubocop-rspec', '~> 1.10.0',  :require => false if RUBY_VERSION >= '2.3.0'
+  gem 'simplecov',                   :require => false
 end
 
 group :development do
-  gem 'guard-rake',   :require => false
-  gem 'redcarpet',    :require => false
-  gem 'travis',       :require => false
-  gem 'travis-lint',  :require => false
+  gem 'github_changelog_generator', '~> 1.13.0',  :require => false if RUBY_VERSION < '2.2.2'
+  gem 'rack', '~> 1.0',                           :require => false if RUBY_VERSION < '2.2.2'
+  gem 'github_changelog_generator',               :require => false if RUBY_VERSION >= '2.2.2'
+  gem 'guard-rake',                               :require => false
+  gem 'puppet-blacksmith',                        :require => false
+  gem 'redcarpet',                                :require => false
+  gem 'travis',                                   :require => false
+  gem 'travis-lint',                              :require => false
 end
 
 group :integration do
