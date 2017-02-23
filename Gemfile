@@ -14,7 +14,6 @@ group :test do
   gem 'json', '< 2.0.0',             :require => false if RUBY_VERSION < '2.0.0'
   gem 'json_pure', '<= 2.0.1',       :require => false if RUBY_VERSION < '2.0.0'
   gem 'metadata-json-lint',          :require => false
-  gem 'parallel_tests',              :require => false
   gem 'puppet-strings',              :require => false
   gem 'puppet_facts',                :require => false
   gem 'puppetlabs_spec_helper',      :require => false
@@ -30,6 +29,7 @@ group :development do
   gem 'rack', '~> 1.0',                           :require => false if RUBY_VERSION < '2.2.2'
   gem 'github_changelog_generator',               :require => false if RUBY_VERSION >= '2.2.2'
   gem 'guard-rake',                               :require => false
+  gem 'parallel_tests',                           :require => false
   gem 'puppet-blacksmith',                        :require => false
   gem 'redcarpet',                                :require => false
   gem 'travis',                                   :require => false
