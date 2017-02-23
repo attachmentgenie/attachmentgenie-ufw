@@ -41,6 +41,6 @@ end
 
 RSpec.configure do |c|
   c.after(:suite) do
-    RSpec::Puppet::Coverage.report!
+    RSpec::Puppet::Coverage.report!(70)
   end
 end
