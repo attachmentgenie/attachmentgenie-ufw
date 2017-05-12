@@ -15,11 +15,7 @@ guard 'rake', :task => 'strings:generate', :task_args => [''] do
   watch('README.md')
 end
 
-guard 'rake', :task => 'spec_prep' do
-  watch('.fixtures.yml')
-end
-
-guard 'rake', :task => 'spec_standalone' do
+guard 'rake', :task => 'spec' do
   watch(%r{^examples\/(.+)\.pp$})
   watch(%r{^manifests\/(.+)\.pp$})
   watch(%r{^templates\/(.+)\.erb$})
