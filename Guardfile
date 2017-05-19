@@ -24,3 +24,10 @@ guard 'rake', :task => 'parallel_spec' do
   watch('.fixtures.yml')
   watch('metadata.json')
 end
+
+=begin
+guard 'rake', :task => 'kitchen:all' do
+  watch(%r{^manifests\/(.+)\.pp$})
+  watch('.kitchen.yml')
+end
+=end
