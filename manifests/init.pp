@@ -44,11 +44,11 @@ class ufw(
     provider => 'posix',
   }
 
-  anchor { 'ufw::begin': } ->
-  class{ '::ufw::install': } ->
-  class{ '::ufw::config': } ~>
-  class{ '::ufw::service': } ->
-  anchor { 'ufw::end': }
+  anchor { 'ufw::begin': }
+  -> class{ '::ufw::install': }
+  -> class{ '::ufw::config': }
+  ~> class{ '::ufw::service': }
+  -> anchor { 'ufw::end': }
 
   # Hiera resource creation
   create_resources('::ufw::allow',  $allow)
