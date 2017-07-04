@@ -16,10 +16,10 @@ platforms:
 - name: ubuntu-16.04
   provisioner:
     puppet_apt_collections_repo: https://apt.puppetlabs.com/puppetlabs-release-pc1-xenial.deb
-- name: debian-7.11
+- name: debian-8.8
   provisioner:
-    puppet_apt_collections_repo: https://apt.puppetlabs.com/puppetlabs-release-pc1-wheezy.deb
-- name: debian-8.6
+    puppet_apt_collections_repo: https://apt.puppetlabs.com/puppetlabs-release-pc1-jessie.deb
+- name: debian-9.0
   provisioner:
     puppet_apt_collections_repo: https://apt.puppetlabs.com/puppetlabs-release-pc1-jessie.deb
 suites:
