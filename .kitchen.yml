@@ -10,18 +10,18 @@ verifier:
   name: inspec
   suite_name: default
 platforms:
-- name: ubuntu-14.04
-  provisioner:
-    puppet_apt_collections_repo: https://apt.puppetlabs.com/puppetlabs-release-pc1-trusty.deb
-- name: ubuntu-16.04
-  provisioner:
-    puppet_apt_collections_repo: https://apt.puppetlabs.com/puppetlabs-release-pc1-xenial.deb
-- name: debian-8.8
-  provisioner:
-    puppet_apt_collections_repo: https://apt.puppetlabs.com/puppetlabs-release-pc1-jessie.deb
-- name: debian-9.0
-  provisioner:
-    puppet_apt_collections_repo: https://apt.puppetlabs.com/puppetlabs-release-pc1-jessie.deb
+  - name: ubuntu-14.04
+    provisioner:
+      puppet_apt_collections_repo: https://apt.puppetlabs.com/puppetlabs-release-pc1-trusty.deb
+  - name: ubuntu-16.04
+    provisioner:
+      puppet_apt_collections_repo: https://apt.puppetlabs.com/puppetlabs-release-pc1-xenial.deb
+  - name: debian-7.11
+    provisioner:
+      puppet_apt_collections_repo: https://apt.puppetlabs.com/puppetlabs-release-pc1-wheezy.deb
+  - name: debian-8.8
+    provisioner:
+      puppet_apt_collections_repo: https://apt.puppetlabs.com/puppetlabs-release-pc1-jessie.deb
 suites:
   - name: puppet4
     provisioner:
