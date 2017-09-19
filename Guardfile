@@ -10,6 +10,11 @@ guard 'rake', :task => 'lint' do
   watch(%r{^templates\/(.+)\.erb$})
 end
 
+guard 'rake', :task => 'rubocop' do
+watch(%r{^lib\/(.+)\.rb$})
+watch(%r{^spec\/(.+)\.rb$})
+end
+
 guard 'rake', :task => 'strings:generate', :task_args => [''] do
   watch(%r{^manifests\/(.+)\.pp$})
   watch('README.md')
