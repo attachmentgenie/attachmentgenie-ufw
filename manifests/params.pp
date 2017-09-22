@@ -1,4 +1,6 @@
-#  Installs and enables Ubuntu's "uncomplicated" firewall.
+# Class to manage ufw parameters.
+#
+# Dont include this class directly.
 #
 class ufw::params {
   $allow          = {}

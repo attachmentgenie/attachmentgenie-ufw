@@ -10,32 +10,30 @@ add_custom_fact :puppetversion, Puppet.version
 
 # Workaround for no method in rspec-puppet to pass undef through :params
 class Undef
-  def inspect; 'undef'; end
+  def inspect
+    'undef'
+  end
 end
 
 # Running tests with the ONLY_OS environment variable set
 # limits the tested platforms to the specified values.
 # Example: ONLY_OS=centos-7-x86_64,ubuntu-14-x86_64
 def only_test_os
-  if ENV.key?('ONLY_OS')
-    ENV['ONLY_OS'].split(',')
-  end
+  ENV['ONLY_OS'].split(',') if ENV.key?('ONLY_OS')
 end
 
 # Running tests with the EXCLUDE_OS environment variable set
 # limits the tested platforms to all but the specified values.
 # Example: EXCLUDE_OS=centos-7-x86_64,ubuntu-14-x86_64
 def exclude_test_os
-  if ENV.key?('EXCLUDE_OS')
-    ENV['EXCLUDE_OS'].split(',')
-  end
+  ENV['EXCLUDE_OS'].split(',') if ENV.key?('EXCLUDE_OS')
 end
 
 # Use the above environment variables to limit the platforms under test
 def on_os_under_test
-  on_supported_os.reject do |os, facts|
-    (only_test_os() && !only_test_os.include?(os)) ||
-        (exclude_test_os() && exclude_test_os.include?(os))
+  on_supported_os.reject do |os, _facts|
+    (only_test_os && !only_test_os.include?(os)) ||
+      (exclude_test_os && exclude_test_os.include?(os))
   end
 end
 

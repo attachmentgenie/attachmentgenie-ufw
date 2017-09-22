@@ -9,6 +9,7 @@ AllCops:
     - .vendor/**/*
     - pkg/**/*
     - spec/fixtures/**/*
+    - test/integration/**/*
 Lint/ConditionPosition:
   Enabled: True
 

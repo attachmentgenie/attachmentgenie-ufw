@@ -9,28 +9,20 @@
 #    port => '22',
 #  }
 #
-# @param direction (String) The first parameter for this class
-# @param ensure (String) Enable of disable rule. default: present
-# @param from (String) Ip address to allow access from. default: any
-# @param ip (String) Ip address to allow access to. default: ''
-# @param port (String) Port to act on. default: all
-# @param proto (String) Protocol to use. default: tcp
+# @param direction The first parameter for this class
+# @param ensure Enable of disable rule. default: present
+# @param from Ip address to allow access from. default: any
+# @param ip Ip address to allow access to. default: ''
+# @param port Port to act on. default: all
+# @param proto Protocol to use. default: tcp
 define ufw::allow(
-  $direction ='IN',
-  $ensure ='present',
-  $from = 'any',
-  $ip = '',
-  $port = 'all',
-  $proto = 'tcp',
+  Enum['IN','OUT'] $direction ='IN',
+  Enum['absent','present'] $ensure ='present',
+  String $from = 'any',
+  String $ip = '',
+  String $port = 'all',
+  Enum[ 'tcp','udp','any'] $proto = 'tcp',
 ) {
-  validate_re($direction, 'IN|OUT')
-  validate_re($ensure, 'absent|present')
-  validate_re($proto, 'tcp|udp|any')
-  validate_string($from,
-    $ip,
-    $port
-  )
-
   $dir = $direction ? {
     'out'   => 'OUT',
     default => ''

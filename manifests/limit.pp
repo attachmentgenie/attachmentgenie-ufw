@@ -9,12 +9,10 @@
 #    port => '22',
 #  }
 #
-# @param proto (String) Protocol to use default: tcp
+# @param proto Protocol to use default: tcp
 define ufw::limit(
-  $proto='tcp'
+  Enum[ 'tcp','udp'] $proto = 'tcp',
 ) {
-  validate_re($proto, 'tcp|udp')
-
   exec { "ufw limit ${name}/${proto}":
     path     => '/usr/sbin:/bin:/usr/bin',
     provider => 'posix',
