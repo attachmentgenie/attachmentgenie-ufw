@@ -11,17 +11,17 @@ def location_for(place, fake_version = nil)
 end
 
 group :test do
-  gem 'json', '< 2.0.0',             :require => false if RUBY_VERSION < '2.0.0'
-  gem 'json_pure', '<= 2.0.1',       :require => false if RUBY_VERSION < '2.0.0'
-  gem 'metadata-json-lint',          :require => false
-  gem 'puppet-strings',              :require => false
-  gem 'puppet_facts',                :require => false
-  gem 'puppetlabs_spec_helper',      :require => false
-  gem 'rspec-core',                  :require => false
-  gem 'rspec-puppet-facts',          :require => false
-  gem 'rubocop', '~> 0.49.0',        :require => false
-  gem 'rubocop-rspec', '~> 1.10.0',  :require => false
-  gem 'simplecov',                   :require => false
+  gem 'json', '< 2.0.0',                  :require => false if RUBY_VERSION < '2.0.0'
+  gem 'json_pure', '<= 2.0.1',            :require => false if RUBY_VERSION < '2.0.0'
+  gem 'metadata-json-lint',               :require => false
+  gem 'puppet-strings',                   :require => false
+  gem 'puppet_facts',                     :require => false
+  gem 'puppetlabs_spec_helper', '2.4.0',  :require => false
+  gem 'rspec-core',                       :require => false
+  gem 'rspec-puppet-facts',               :require => false
+  gem 'rubocop', '~> 0.49.1',             :require => false
+  gem 'rubocop-rspec', '~> 1.10.0',       :require => false
+  gem 'simplecov',                        :require => false
 end
 
 group :development do
