@@ -19,7 +19,7 @@ group :test do
   gem 'puppetlabs_spec_helper',      :require => false
   gem 'rspec-core',                  :require => false
   gem 'rspec-puppet-facts',          :require => false
-  gem 'rubocop', '~> 0.47.0',        :require => false
+  gem 'rubocop', '~> 0.49.0',        :require => false
   gem 'rubocop-rspec', '~> 1.10.0',  :require => false
   gem 'simplecov',                   :require => false
 end
