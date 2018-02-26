@@ -13,7 +13,7 @@ verifier:
 platforms:
   - name: ubuntu-14.04
   - name: ubuntu-16.04
-  - name: debian-7.11
-  - name: debian-8.8
+  - name: debian-8.10
+  - name: debian-9.3
 suites:
   - name: puppet5
