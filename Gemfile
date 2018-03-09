@@ -37,12 +37,11 @@ group :development do
 end
 
 group :integration do
-  gem 'concurrent-ruby', '~> 0.9',  :require => false
-  gem 'kitchen-inspec',             :require => false
-  gem 'kitchen-puppet',             :require => false
-  gem 'kitchen-vagrant',            :require => false
-  gem 'librarian-puppet',           :require => false
-  gem 'test-kitchen', '~> 1.4',     :require => false
+  gem 'kitchen-inspec',          :require => false
+  gem 'kitchen-puppet',          :require => false
+  gem 'kitchen-vagrant',         :require => false
+  gem 'librarian-puppet',        :require => false
+  gem 'test-kitchen', '~> 1.4',  :require => false
 end
 
 
