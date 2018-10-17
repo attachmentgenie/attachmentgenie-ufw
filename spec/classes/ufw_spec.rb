@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'ufw', type: :class do
-  on_os_under_test.each do |os, facts|
+  on_supported_os.each do |os, facts|
     context "on #{os}" do
       let(:facts) { facts }
 
@@ -17,9 +17,9 @@ describe 'ufw', type: :class do
       describe 'ufw::config' do
         context 'with default parameters' do
           it do
-            is_expected.to contain_exec('ufw-logging-low').
-              with_command('ufw logging low').
-              with_unless("grep -qE '^LOGLEVEL=low$' /etc/ufw/ufw.conf")
+            is_expected.to contain_exec('ufw-logging-low')
+              .with_command('ufw logging low')
+              .with_unless("grep -qE '^LOGLEVEL=low$' /etc/ufw/ufw.conf")
           end
 
           it 'bies default deny all incoming connections' do
@@ -30,17 +30,18 @@ describe 'ufw', type: :class do
             is_expected.to contain_file_line('forward policy').with(
               path: '/etc/default/ufw',
               line: 'DEFAULT_FORWARD_POLICY="DROP"',
-              match: '^DEFAULT_FORWARD_POLICY='
+              match: '^DEFAULT_FORWARD_POLICY=',
             )
           end
         end
 
         context 'specifying log level' do
           let(:params) { { log_level: 'high' } }
+
           it do
-            is_expected.to contain_exec('ufw-logging-high').
-              with_command('ufw logging high').
-              with_unless("grep -qE '^LOGLEVEL=high$' /etc/ufw/ufw.conf")
+            is_expected.to contain_exec('ufw-logging-high')
+              .with_command('ufw logging high')
+              .with_unless("grep -qE '^LOGLEVEL=high$' /etc/ufw/ufw.conf")
           end
         end
       end
