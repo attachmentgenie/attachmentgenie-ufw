@@ -24,7 +24,7 @@ define ufw::allow(
   Enum[ 'tcp','udp','any'] $proto = 'tcp',
 ) {
   $dir = $direction ? {
-    'out'   => 'OUT',
+    'OUT'   => 'OUT',
     default => ''
   }
 
@@ -96,9 +96,9 @@ define ufw::allow(
     $unless  = "${ipadr}:${port}" ? {
       'any:all'    => "ufw status | grep -qE ' +ALLOW +${from_match}${proto_match}$'",
       #'any:all'    => "ufw status | grep -qE ' +ALLOW ${dir} +${from_match}( +.*)?$'",
-      /[0-9]:all$/ => "ufw status | grep -qE '^${ipadr_match}${proto_match} +ALLOW +${from_match}${from_proto_match}( +.*)?$'",
-      /^any:[0-9]/ => "ufw status | grep -qE '^${port}${proto_match} +ALLOW +${from_match}( +.*)?$'",
-      default      => "ufw status | grep -qE '^${ipadr_match} ${port}${proto_match} +ALLOW +${from_match}( +.*)?$'",
+      /[0-9]:all$/ => "ufw status | grep -qE '^${ipadr_match}${proto_match} +ALLOW ${dir} +${from_match}${from_proto_match}( +.*)?$'",
+      /^any:[0-9]/ => "ufw status | grep -qE '^${port}${proto_match} +ALLOW ${dir} +${from_match}( +.*)?$'",
+      default      => "ufw status | grep -qE '^${ipadr_match} ${port}${proto_match} +ALLOW ${dir} +${from_match}( +.*)?$'",
     }
 
   exec { "ufw-allow-${direction}-${proto}-from-${from}-to-${ipadr}-port-${port}":
